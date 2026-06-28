@@ -17,18 +17,17 @@ function Hero() {
           Your{" "}
           <span className="bg-gradient-to-r from-[#ff5e00] via-[#fda103] to-[#fb7303] bg-clip-text text-transparent font-['Orbitron']">
             Portal to a Gritty,
-          </span>
-          {" "}Tech-Driven Future
+          </span>{" "}
+          Tech-Driven Future
         </h1>
 
         <p className="text-[15px] leading-8 text-gray-300 mb-5 font-sans">
-          A realm where advanced technology meets dystopian reality.
-          Our website is your gateway to a universe of neon lights,
-          gritty streets, and cybernetic enhancements.
+          A realm where advanced technology meets dystopian reality. Our website
+          is your gateway to a universe of neon lights, gritty streets, and
+          cybernetic enhancements.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-5 mt-8 justify-center lg:justify-start">
-
           <button className="px-5 py-2 rounded-lg text-white text-[18px] bg-gradient-to-r from-[#f8961e] via-[#ff6b00] to-[#f94144] hover:-translate-y-[2px] transition-all duration-300">
             Read More
           </button>
