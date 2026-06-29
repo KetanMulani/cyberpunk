@@ -158,12 +158,17 @@ export default function AboutPage() {
                     onEnter: () => {
                         setActiveChapter(i);
                         gsap.to(c.wrapEl, { opacity: 1, duration: 0.5 });
-                        if (i > 0) gsap.to(els[i - 1].wrapEl, { opacity: 0.28, duration: 0.5 });
+                        if (i > 0) gsap.to(els[i - 1].wrapEl, { opacity: 0, duration: 0.5 });
                     },
                 });
             });
             return () => ScrollTrigger.getAll().forEach((t) => t.kill());
         }
+
+        // Hide all chapters except the first via visibility
+        els.forEach((c, i) => {
+            c.wrapEl.style.visibility = i === 0 ? "visible" : "hidden";
+        });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -174,20 +179,35 @@ export default function AboutPage() {
                 scrub: 1.4,
                 anticipatePin: 1,
                 onUpdate: (self) => {
-                    setActiveChapter(Math.min(Math.floor(self.progress * CHAPTERS.length), CHAPTERS.length - 1));
+                    const idx = Math.min(Math.floor(self.progress * CHAPTERS.length), CHAPTERS.length - 1);
+                    setActiveChapter(idx);
+                    // Allow current + previous chapter visible for smooth crossfade
+                    // Hide everything else to prevent pile-up
+                    els.forEach((c, j) => {
+                        c.wrapEl.style.visibility = (j === idx || j === idx - 1) ? "visible" : "hidden";
+                    });
                 },
             },
         });
 
+        const allWords = [];
+
         els.forEach((c, i) => {
             const words = buildWordSpans(CHAPTERS[i].body, c.bodyEl);
+            allWords.push(words);
 
-            if (i > 0) tl.to(c.wrapEl, { opacity: 1, duration: 0.4 }, ">");
+            if (i > 0) {
+                // Fade out previous chapter's words top-to-bottom, then heading and meta
+                tl.to(allWords[i - 1], { opacity: 0, filter: "blur(5px)", y: -7, duration: 0.8, stagger: { each: 0.03 }, ease: "power2.in" }, ">");
+                tl.to(els[i - 1].headEl, { opacity: 0, y: -15, duration: 0.4 }, "<0.2");
+                tl.to(els[i - 1].metaEl, { opacity: 0, y: -8, duration: 0.3 }, "<");
+                // Fade in new chapter
+                tl.to(c.wrapEl, { opacity: 1, duration: 0.4 }, ">");
+            }
             tl.to(c.metaEl, { opacity: 0.55, y: 0, duration: 0.3 }, "<0.1");
             tl.to(c.headEl, { opacity: 1, y: 0, letterSpacing: "0.02em", duration: 0.55, ease: "power3.out" }, "<0.15");
             tl.to(words, { opacity: 1, filter: "blur(0px)", y: 0, duration: 1.6, stagger: { each: 0.06, ease: "power2.out" }, ease: "none" }, "<0.25");
             tl.to({}, { duration: 0.3 });
-            if (i < els.length - 1) tl.to(c.wrapEl, { opacity: 0.25, duration: 0.4 }, ">");
         });
 
         return () => { tl.scrollTrigger?.kill(); tl.kill(); };
@@ -197,46 +217,9 @@ export default function AboutPage() {
         <>
             <FontLoader />
 
-            {/* ── Fixed nav ──────────────────────────────────────────────────────── */}
-            <nav style={{
-                position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "18px 56px",
-                background: "rgba(0,0,0,0.80)", backdropFilter: "blur(14px)",
-                borderBottom: "1px solid rgba(70,90,160,0.15)",
-            }}>
-                <a href="/" style={{ color: "#e85d04", fontFamily: "'Inter',sans-serif", fontWeight: 700, fontSize: "18px", textDecoration: "none", letterSpacing: "0.03em" }}>
-                    Cyber. Game
-                </a>
-                <div style={{ display: "flex", gap: "32px" }}>
-                    {[{ l: "Home", h: "/" }, { l: "About", h: "#" }].map(({ l, h }) => (
-                        <a key={l} href={h} style={{
-                            color: l === "About" ? "#e85d04" : "#c0c0c0",
-                            textDecoration: "none", fontSize: "14px", fontWeight: l === "About" ? 600 : 500,
-                            fontFamily: "'Inter',sans-serif", transition: "color 0.2s",
-                        }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = "#e85d04")}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = l === "About" ? "#e85d04" : "#c0c0c0")}
-                        >{l}</a>
-                    ))}
-                </div>
-                <button style={{
-                    background: "#e85d04", color: "#fff", border: "none",
-                    padding: "10px 22px", borderRadius: "5px", fontSize: "13px",
-                    fontWeight: 600, fontFamily: "'Inter',sans-serif", cursor: "pointer",
-                    letterSpacing: "0.02em", transition: "all 0.3s",
-                }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(232,93,4,0.5)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
-                >
-                    Get started free
-                </button>
-            </nav>
 
             {/* ── Main page ──────────────────────────────────────────────────────── */}
             <main style={{ background: "#000", minHeight: "100vh", overflowX: "hidden" }}>
-                {/* Nav spacer */}
-                <div style={{ height: "64px" }} />
 
                 {/* ── PINNED SCROLL STORY SECTION ─────────────────────────────────── */}
                 <section
@@ -326,7 +309,8 @@ export default function AboutPage() {
                     {/* ── Chapter stage ── */}
                     <div style={{
                         position: "absolute", inset: 0, zIndex: 20,
-                        display: "flex", alignItems: "center", justifyContent: "center",
+                        display: "flex", alignItems: "flex-start", justifyContent: "center",
+                        paddingTop: "15vh",
                     }}>
                         <div style={{ position: "relative", width: "100%", maxWidth: "860px", padding: "0 90px" }}>
                             {CHAPTERS.map((ch, i) => (
@@ -398,10 +382,10 @@ export default function AboutPage() {
                     padding: "26px 56px", display: "flex", alignItems: "center", justifyContent: "space-between",
                 }}>
                     <span style={{ color: "#e85d04", fontFamily: "'Inter',sans-serif", fontWeight: 700, fontSize: "16px" }}>
-                        Cyber. Game
+                        Cyberpunk
                     </span>
                     <span style={{ color: "rgba(255,255,255,0.2)", fontFamily: "'Inter',sans-serif", fontSize: "10px", letterSpacing: "0.14em" }}>
-                        © 2046 CYBER.GAME — ALL RIGHTS RESERVED
+                        © 2046 CYBERPUNK — ALL RIGHTS RESERVED
                     </span>
                 </footer>
             </main>

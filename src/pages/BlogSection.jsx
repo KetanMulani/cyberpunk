@@ -127,7 +127,7 @@ const TOPICS = ["General", "Lore", "Tech", "Art", "Underground"];
 
 function Sidebar({ activeTopic, onTopicChange }) {
   return (
-    <aside className="w-full shrink-0 lg:w-64">
+    <aside className="w-full shrink-0 lg:w-64 lg:sticky lg:top-20 lg:self-start">
       <a
         href="#"
         className="block text-sm font-medium text-zinc-300 hover:text-white"

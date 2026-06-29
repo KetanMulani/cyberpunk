@@ -12,12 +12,17 @@ import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Cookies from "./components/Cookies";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Navbar from "./components/Navbar";
+import LandingHero from "./components/LandingHero";
+import Hero from "./components/Hero";
 
 function Home() {
   const [showCookies, setShowCookies] = useState(false);
 
   return (
     <div className="bg-[#050505] text-white min-h-screen">
+      <LandingHero />
+      <Hero />
       <HeroSection />
       <GreetSection />
       <UnveilSection />
@@ -32,6 +37,7 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />

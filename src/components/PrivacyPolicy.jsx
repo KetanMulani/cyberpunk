@@ -14,18 +14,18 @@ function PrivacyPolicy() {
   };
 
   return (
-    <section className="bg-[radial-gradient(circle_at_top,#111,#000)] text-white min-h-screen">
+    <section className="bg-black text-white min-h-screen font-rajdhani">
 
       <div className="max-w-[1100px] mx-auto px-6 lg:px-12 py-20">
 
         {/* HEADER */}
         <div className="text-center mb-24">
 
-          <p className="text-orange-400 tracking-[4px] uppercase mb-6">
+          <p className="font-exo text-gradient-neon tracking-[4px] uppercase mb-6">
             Privacy & Security
           </p>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 font-['Orbitron']">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-8 font-exo">
             Privacy Policy
           </h1>
 
@@ -48,7 +48,7 @@ function PrivacyPolicy() {
             onClick={() => toggleSection(1)}
             className="w-full flex justify-between items-center"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-left">
+            <h2 className="text-2xl md:text-4xl font-bold text-left font-exo">
               Information We Collect
             </h2>
 
@@ -85,7 +85,7 @@ function PrivacyPolicy() {
             onClick={() => toggleSection(2)}
             className="w-full flex justify-between items-center"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-left">
+            <h2 className="text-2xl md:text-4xl font-bold text-left font-exo">
               How We Use Your Data
             </h2>
 
@@ -122,7 +122,7 @@ function PrivacyPolicy() {
             onClick={() => toggleSection(3)}
             className="w-full flex justify-between items-center"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-left">
+            <h2 className="text-2xl md:text-4xl font-bold text-left font-exo">
               Cookies & Tracking Technologies
             </h2>
 
@@ -159,7 +159,7 @@ function PrivacyPolicy() {
             onClick={() => toggleSection(4)}
             className="w-full flex justify-between items-center"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-left">
+            <h2 className="text-2xl md:text-4xl font-bold text-left font-exo">
               Data Security & Protection
             </h2>
 
@@ -195,7 +195,7 @@ function PrivacyPolicy() {
             onClick={() => toggleSection(5)}
             className="w-full flex justify-between items-center"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-left">
+            <h2 className="text-2xl md:text-4xl font-bold text-left font-exo">
               User Privacy Rights
             </h2>
 

@@ -41,50 +41,7 @@ export default function LandingHero() {
                 style={{ border: "1px solid rgba(59,130,246,0.18)" }}
             />
 
-            {/* ── NAVIGATION ── */}
-            <nav className="relative z-40 flex items-center justify-between px-10 py-5">
-                {/* Logo */}
-                <div
-                    className="text-xl font-bold tracking-wide"
-                    style={{ color: "#e85d04", fontFamily: "'Segoe UI', system-ui, sans-serif", letterSpacing: "0.04em" }}
-                >
-                    Cyber. <span style={{ color: "#e85d04" }}>Game</span>
-                </div>
 
-                {/* Nav links */}
-                <div className="hidden md:flex items-center gap-10">
-                    {["Home", "Pages", "Support", "Contact"].map((link) => (
-                        <a
-                            key={link}
-                            href="#"
-                            className="text-sm font-medium transition-colors duration-200"
-                            style={{ color: "#d1d5db", letterSpacing: "0.01em" }}
-                            onMouseEnter={(e) => (e.target.style.color = "#e85d04")}
-                            onMouseLeave={(e) => (e.target.style.color = "#d1d5db")}
-                        >
-                            {link}
-                        </a>
-                    ))}
-                </div>
-
-                {/* CTA button */}
-                <button
-                    className="text-white text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300 hover:-translate-y-1"
-                    style={{
-                        background: "#e85d04",
-                        letterSpacing: "0.03em",
-                        boxShadow: "0 0 0 transparent",
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = "0 6px 24px rgba(232,93,4,0.5)";
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = "0 0 0 transparent";
-                    }}
-                >
-                    Get started free
-                </button>
-            </nav>
 
             {/* ── HERO SECTION ── */}
             <div className="relative z-10 flex flex-col items-center" style={{ minHeight: "calc(100vh - 80px)" }}>
