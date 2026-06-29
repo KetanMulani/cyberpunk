@@ -42,7 +42,6 @@ function PrivacyPolicy() {
 
         </div>
 
-        {/* SECTION 1 */}
         <div className="border-b border-orange-500/20 py-8">
 
           <button
@@ -80,7 +79,6 @@ function PrivacyPolicy() {
 
         </div>
 
-        {/* SECTION 2 */}
         <div className="border-b border-orange-500/20 py-8">
 
           <button
@@ -155,7 +153,6 @@ function PrivacyPolicy() {
 
         </div>
 
-        {/* SECTION 4 */}
         <div className="border-b border-orange-500/20 py-8">
 
           <button
@@ -192,7 +189,6 @@ function PrivacyPolicy() {
 
         </div>
 
-        {/* SECTION 5 */}
         <div className="border-b border-orange-500/20 py-8">
 
           <button
